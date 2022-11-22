@@ -1,0 +1,9 @@
+mall:
+  profiles:
+    active: test
+  api:
+    baseUrl: http://localhost:88/admin/
+    connectTimeout: 10000
+    receiveTimeout: 3000
+  logger:
+    level: ${logger.level}
