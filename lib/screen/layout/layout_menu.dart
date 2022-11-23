@@ -1,0 +1,160 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_mall_admin/extension/context_extension.dart';
+import 'package:flutter_mall_admin/model/admin/menu_model.dart';
+import 'package:flutter_mall_admin/model/admin/treeVo.dart';
+import 'package:flutter_mall_admin/util/store_util.dart';
+import 'package:flutter_mall_admin/util/tro_util.dart';
+import 'package:flutter_mall_admin/util/utils.dart';
+
+class LayoutMenu extends StatefulWidget {
+  const LayoutMenu({
+    Key? key,
+    this.onClick,
+  }) : super(key: key);
+  final Function? onClick;
+
+  @override
+  _LayoutMenuState createState() => _LayoutMenuState();
+}
+
+class _LayoutMenuState extends State<LayoutMenu> {
+  final double headerHeight = 48;
+  bool? expandMenu;
+  bool expandAll = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    expandMenu ??=
+        isDisplayDesktop(context) || Utils.isMenuDisplayTypeDrawer(context);
+    var menuHeaderExpand = Row(
+      children: [
+        if (!Utils.isMenuDisplayTypeDrawer(context))
+          IconButton(
+            icon: Icon(Icons.chevron_left),
+            onPressed: () {
+              expandMenu = !expandMenu!;
+              setState(() {});
+            },
+          ),
+        Expanded(
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    expandAll = true;
+                  });
+                },
+                icon: Icon(
+                  Icons.expand,
+                ),
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.vertical_align_center,
+                ),
+                onPressed: () {
+                  setState(() {
+                    expandAll = false;
+                  });
+                },
+              ),
+            ],
+            mainAxisAlignment: MainAxisAlignment.end,
+          ),
+        ),
+      ],
+    );
+
+    var menuHeaderCollapse = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+          icon: Icon(
+            Icons.chevron_right,
+          ),
+          onPressed: () {
+            expandMenu = !expandMenu!;
+            setState(() {});
+          },
+        ),
+      ],
+    );
+    var menuHeader = Material(
+      type: MaterialType.transparency,
+      child: Container(
+        color: Colors.white,
+        height: headerHeight,
+        child: expandMenu! ? menuHeaderExpand : menuHeaderCollapse,
+      ),
+    );
+    var menuBody = ListView(
+      key: Key('builder ${expandAll.toString()}'),
+      children: [
+        SizedBox(height: headerHeight),
+        ..._getMenuListTile(TreeUtil.toTreeVOList(StoreUtil.getMenuList()),
+            StoreUtil.readCurrentOpenedTabPageId()),
+      ],
+    );
+    var menuStack = Stack(
+      alignment: Alignment.topCenter,
+      children: [
+        menuBody,
+        menuHeader,
+        Divider(
+          thickness: 1,
+          color: Colors.black26,
+          height: headerHeight * 2 - 1,
+        ),
+      ],
+    );
+    var result = Utils.isMenuDisplayTypeDrawer(context)
+        ? Drawer(child: menuStack)
+        : SizedBox(
+            width: expandMenu! ? 300 : 60,
+            child: menuStack,
+          );
+    return result;
+  }
+
+  List<Widget> _getMenuListTile(
+      List<TreeVO<MenuModel>> data, String? currentOpenedTabPageId) {
+    List<Widget> listTileList = data.map<Widget>((TreeVO<MenuModel> treeVO) {
+      IconData iconData = Utils.toIconData(treeVO.data!.icon);
+      String name = treeVO.data!.name ?? '';
+      Text title = Text(expandMenu! ? name : '');
+      if (treeVO.children.length > 0) {
+        bool hasChildrenOpened = treeVO.children
+            .any((element) => currentOpenedTabPageId == element.data!.id);
+        return ExpansionTile(
+          key: Key(treeVO.data!.id!),
+          initiallyExpanded: hasChildrenOpened || expandAll,
+          leading: Icon(iconData),
+          children: _getMenuListTile(treeVO.children, currentOpenedTabPageId),
+          title: title,
+          childrenPadding: EdgeInsets.only(left: this.expandMenu! ? 30 : 0),
+        );
+      } else {
+        return ListTile(
+          tileColor: currentOpenedTabPageId == treeVO.data!.id
+              ? Colors.blue.shade100
+              : null,
+          leading: Icon(iconData, color: context.theme.primaryColor),
+          title: title,
+          onTap: () {
+            if (currentOpenedTabPageId != treeVO.data!.id &&
+                widget.onClick != null) {
+              widget.onClick!(treeVO.data);
+            }
+          },
+        );
+      }
+    }).toList();
+    return listTileList;
+  }
+}

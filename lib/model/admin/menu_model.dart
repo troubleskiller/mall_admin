@@ -1,4 +1,7 @@
-class MenuModel {
+import 'package:flutter_mall_admin/model/admin/tabPage_model.dart';
+import 'package:flutter_mall_admin/model/admin/treeVo.dart';
+
+class MenuModel extends TreeData {
   MenuModel({
     this.id,
     this.name,
@@ -12,22 +15,25 @@ class MenuModel {
     this.updateTime,
     this.orderBy,
     this.subsystemId,
-  });
+  }) : super(id, pid);
 
-  MenuModel.fromJson(dynamic json) {
-    id = json['id'];
-    name = json['name'];
-    nameEn = json['nameEn'];
-    icon = json['icon'];
-    pid = json['pid'];
-    url = json['url'];
-    module = json['module'];
-    remark = json['remark'];
-    createTime = json['createTime'];
-    updateTime = json['updateTime'];
-    orderBy = json['orderBy'];
-    subsystemId = json['subsystemId'];
+  factory MenuModel.fromJson(dynamic json) {
+    return MenuModel(
+      id: json['id'],
+      name: json['name'],
+      nameEn: json['nameEn'],
+      icon: json['icon'],
+      pid: json['pid'],
+      url: json['url'],
+      module: json['module'],
+      remark: json['remark'],
+      createTime: json['createTime'],
+      updateTime: json['updateTime'],
+      orderBy: json['orderBy'],
+      subsystemId: json['subsystemId'],
+    );
   }
+
   String? id;
   String? name;
   String? nameEn;
@@ -56,5 +62,14 @@ class MenuModel {
     map['orderBy'] = orderBy;
     map['subsystemId'] = subsystemId;
     return map;
+  }
+
+  toTabPage() {
+    return TabPage(
+      id: id,
+      name: name,
+      nameEn: nameEn,
+      url: url,
+    );
   }
 }

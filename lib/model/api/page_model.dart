@@ -74,11 +74,11 @@ class PageModel {
 /// updateTime : null
 /// face : null
 
-List listFromJson(String str) => List.fromJson(json.decode(str));
-String listToJson(List data) => json.encode(data.toJson());
+PageList FromJson(String str) => PageList.fromJson(json.decode(str));
+String listToJson(PageList data) => json.encode(data.toJson());
 
-class List {
-  List({
+class PageList {
+  PageList({
     String? id,
     String? userName,
     String? password,
@@ -94,7 +94,7 @@ class List {
     _face = face;
   }
 
-  List.fromJson(dynamic json) {
+  PageList.fromJson(dynamic json) {
     _id = json['id'];
     _userName = json['userName'];
     _password = json['password'];
@@ -108,7 +108,7 @@ class List {
   String? _createTime;
   dynamic _updateTime;
   dynamic _face;
-  List copyWith({
+  PageList copyWith({
     String? id,
     String? userName,
     String? password,
@@ -116,7 +116,7 @@ class List {
     dynamic updateTime,
     dynamic face,
   }) =>
-      List(
+      PageList(
         id: id ?? _id,
         userName: userName ?? _userName,
         password: password ?? _password,

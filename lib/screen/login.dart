@@ -9,6 +9,8 @@ import 'package:flutter_mall_admin/api/user_api.dart';
 // import 'package:flutter_mall_admin/context/application_context.dart';
 import 'package:flutter_mall_admin/model/admin/user_model.dart';
 import 'package:flutter_mall_admin/model/api/response_api.dart';
+import 'package:flutter_mall_admin/screen/layout/layout.dart';
+import 'package:flutter_mall_admin/util/store_util.dart';
 // import 'package:flutter_mall_admin/util/store_util.dart';
 
 class Login extends StatefulWidget {
@@ -219,7 +221,8 @@ class _LoginState extends State<Login> {
     //     responseBodyApi.data[Constant.KEY_CURRENT_USER_INFO]);
     // await StoreUtil.loadDict();
     // await StoreUtil.loadSubsystem();
-    // await StoreUtil.loadMenuData();
+    await StoreUtil.loadMenuData();
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) => Layout()));
     // await StoreUtil.loadDefaultTabs();
     // StoreUtil.init();
   }
