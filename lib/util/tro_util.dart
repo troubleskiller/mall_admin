@@ -6,7 +6,7 @@
 /// @description:
 import 'package:flutter/material.dart';
 import 'package:flutter_mall_admin/context/application_context.dart';
-import 'package:flutter_mall_admin/model/application/tro_properties.dart';
+import 'package:flutter_mall_admin/model/application/properties.dart';
 
 class TroUtils {
   static OverlayEntry? loadingOE;

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_mall_admin/model/api/response_api.dart';
-import 'package:flutter_mall_admin/model/application/tro_properties.dart';
+import 'package:flutter_mall_admin/model/application/properties.dart';
 import 'package:flutter_mall_admin/util/tro_util.dart';
 
 class HttpUtil {

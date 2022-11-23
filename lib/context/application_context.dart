@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:flutter_mall_admin/model/application/tro_properties.dart';
+import 'package:flutter_mall_admin/model/application/properties.dart';
 import 'package:yaml/yaml.dart';
 
 class ApplicationContext {
