@@ -26,7 +26,7 @@ class LayoutCenterState extends State<LayoutCenter>
 
   @override
   Widget build(BuildContext context) {
-    var isMaximize = context.read<LayoutController>().isMaximize;
+    var isMaximize = context.watch<LayoutController>().isMaximize;
     var openedTabPageList = StoreUtil.readOpenedTabPageList();
     if (openedTabPageList.length == 0) {
       return Container();
@@ -44,7 +44,7 @@ class LayoutCenterState extends State<LayoutCenter>
       if (tabController.indexIsChanging) {
         StoreUtil.writeCurrentOpenedTabPageId(
             openedTabPageList[tabController.index]!.id);
-        context.watch<LayoutController>().update();
+        setState(() {});
       }
     });
 

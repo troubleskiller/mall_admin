@@ -29,6 +29,7 @@ class HttpUtil {
 
     ResponseBodyApi responseBodyApi;
     try {
+      print(data);
       Response res = await dio.request(url, data: data);
       print(res.toString());
       responseBodyApi = ResponseBodyApi.fromJson(res.data);

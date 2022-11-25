@@ -6,6 +6,7 @@
 /// @description:
 import 'package:flutter/material.dart';
 import 'package:flutter_mall_admin/model/admin/tabPage_model.dart';
+import 'package:flutter_mall_admin/screen/category_screen/category_list.dart';
 import 'package:flutter_mall_admin/screen/layout/layout.dart';
 
 class Routes {
@@ -23,7 +24,7 @@ class Routes {
     // '/imageUpload': ImageUpload(),
     // '/videoUpload': VideoUpload(),
     // '/articleMain': ArticleMain(),
-    // '/userInfoMine': UserInfoMine(),
+    '/product/category': CategoryList(),
     // '/layout401': Page401(),
     // '/layout404': Page404(),
     // '/layoutTest': MyTest(1),

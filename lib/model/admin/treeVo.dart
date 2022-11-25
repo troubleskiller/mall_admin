@@ -14,8 +14,8 @@ class TreeVO<T extends TreeData> {
 class TreeData {
   TreeData(this.id, this.pid);
   bool? checked;
-  String? id;
-  String? pid;
+  int? id;
+  int? pid;
 }
 
 class TreeUtil {
@@ -61,7 +61,7 @@ class TreeUtil {
     data.forEach((element) {
       addTreeData(result, element);
     });
-    return result.where((element) => element.data!.pid == null).toList();
+    return result.where((element) => element.data!.pid == 0).toList();
   }
 
   static List<TreeVO<T>> getSelected<T extends TreeData>(List<TreeVO<T>> data) {

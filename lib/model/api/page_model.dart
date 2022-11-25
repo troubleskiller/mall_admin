@@ -56,6 +56,10 @@ class PageModel {
   int? get currPage => _currPage;
   dynamic get list => _list;
 
+  set totalCount(int? value) {
+    _totalCount = value;
+  }
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['totalCount'] = _totalCount;
@@ -64,6 +68,22 @@ class PageModel {
     map['currPage'] = _currPage;
     map['list'] = _list;
     return map;
+  }
+
+  set pageSize(int? value) {
+    _pageSize = value;
+  }
+
+  set totalPage(int? value) {
+    _totalPage = value;
+  }
+
+  set currPage(int? value) {
+    _currPage = value;
+  }
+
+  set list(dynamic value) {
+    _list = value;
   }
 }
 

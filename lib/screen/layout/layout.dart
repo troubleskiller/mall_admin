@@ -27,7 +27,7 @@ class _LayoutState extends State<Layout> {
   @override
   Widget build(BuildContext context) {
     var layoutMenu = LayoutMenu(onClick: (MenuModel menu) {
-      Utils.openTab(menu.id!);
+      Utils.openTab(menu.id!.toString());
       setState(() {});
     });
     var controller = context.watch<LayoutController>();

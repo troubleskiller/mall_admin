@@ -19,11 +19,11 @@ class MenuModel extends TreeData {
 
   factory MenuModel.fromJson(dynamic json) {
     return MenuModel(
-      id: json['id'],
+      id: int.parse(json['id']),
       name: json['name'],
       nameEn: json['nameEn'],
       icon: json['icon'],
-      pid: json['pid'],
+      pid: int.parse(json['pid']),
       url: json['url'],
       module: json['module'],
       remark: json['remark'],
@@ -34,11 +34,11 @@ class MenuModel extends TreeData {
     );
   }
 
-  String? id;
+  int? id;
   String? name;
   String? nameEn;
   dynamic icon;
-  String? pid;
+  int? pid;
   String? url;
   dynamic module;
   String? remark;
@@ -66,7 +66,7 @@ class MenuModel extends TreeData {
 
   toTabPage() {
     return TabPage(
-      id: id,
+      id: id.toString(),
       name: name,
       nameEn: nameEn,
       url: url,

@@ -1,4 +1,4 @@
-class ResponseBodyApi {
+class ResponseBodyApi<T> {
   ResponseBodyApi({
     this.code,
     this.data,
@@ -9,7 +9,7 @@ class ResponseBodyApi {
     data = json['data'];
   }
   int? code;
-  dynamic data;
+  T? data;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
