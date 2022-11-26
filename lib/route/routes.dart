@@ -6,6 +6,7 @@
 /// @description:
 import 'package:flutter/material.dart';
 import 'package:flutter_mall_admin/model/admin/tabPage_model.dart';
+import 'package:flutter_mall_admin/screen/brand_screen.dart';
 import 'package:flutter_mall_admin/screen/category_screen/category_list.dart';
 import 'package:flutter_mall_admin/screen/layout/layout.dart';
 
@@ -23,7 +24,7 @@ class Routes {
     // '/deptMain': DeptMain(),
     // '/imageUpload': ImageUpload(),
     // '/videoUpload': VideoUpload(),
-    // '/articleMain': ArticleMain(),
+    '/product/brand': BrandList(),
     '/product/category': CategoryList(),
     // '/layout401': Page401(),
     // '/layout404': Page404(),
@@ -38,12 +39,8 @@ class Routes {
   static List<String> whiteRoutes = ['/register'];
 
   static List<TabPage> otherTabPage = [
-    TabPage(
-        id: 'userInfoMine',
-        url: '/userInfoMine',
-        name: '我的信息',
-        nameEn: 'My Info'),
-    TabPage(id: 'message', url: '/message', name: '反馈', nameEn: 'Feedback'),
+    TabPage(id: 0, url: '/userInfoMine', name: '我的信息', nameEn: 'My Info'),
+    TabPage(id: 200, url: '/message', name: '反馈', nameEn: 'Feedback'),
   ];
 
   // static init() {

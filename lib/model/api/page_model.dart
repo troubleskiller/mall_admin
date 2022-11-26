@@ -16,7 +16,9 @@ class PageModel {
     int? totalPage,
     int? currPage,
     dynamic list,
+    List<OrderItemModel>? orders,
   }) {
+    _orders = orders;
     _totalCount = totalCount;
     _pageSize = pageSize;
     _totalPage = totalPage;
@@ -31,6 +33,8 @@ class PageModel {
     _currPage = json['currPage'];
     _list = json['list'];
   }
+  List<OrderItemModel>? _orders;
+  List<Map<String, dynamic>>? _records;
   int? _totalCount;
   int? _pageSize;
   int? _totalPage;
@@ -70,6 +74,11 @@ class PageModel {
     return map;
   }
 
+  @override
+  String toString() {
+    return 'PageModel{_orders: $_orders, _records: $_records, _totalCount: $_totalCount, _pageSize: $_pageSize, _totalPage: $_totalPage, _currPage: $_currPage, _list: $_list}';
+  }
+
   set pageSize(int? value) {
     _pageSize = value;
   }
@@ -85,80 +94,61 @@ class PageModel {
   set list(dynamic value) {
     _list = value;
   }
+
+  List<OrderItemModel>? get orders => _orders;
+
+  set orders(List<OrderItemModel>? value) {
+    _orders = value;
+  }
 }
 
-/// id : "db288d951c390afb08c8341088bd90fa"
-/// userName : "admin"
-/// password : "admin"
-/// createTime : "2020-08-20T02:39:35.000+00:00"
-/// updateTime : null
-/// face : null
+class OrderItemModel {
+  String? column;
+  bool? asc;
+  OrderItemModel({
+    this.column,
+    this.asc,
+  });
 
-PageList FromJson(String str) => PageList.fromJson(json.decode(str));
-String listToJson(PageList data) => json.encode(data.toJson());
-
-class PageList {
-  PageList({
-    String? id,
-    String? userName,
-    String? password,
-    String? createTime,
-    dynamic updateTime,
-    dynamic face,
+  OrderItemModel copyWith({
+    String? column,
+    bool? asc,
   }) {
-    _id = id;
-    _userName = userName;
-    _password = password;
-    _createTime = createTime;
-    _updateTime = updateTime;
-    _face = face;
+    return OrderItemModel(
+      column: column ?? this.column,
+      asc: asc ?? this.asc,
+    );
   }
 
-  PageList.fromJson(dynamic json) {
-    _id = json['id'];
-    _userName = json['userName'];
-    _password = json['password'];
-    _createTime = json['createTime'];
-    _updateTime = json['updateTime'];
-    _face = json['face'];
+  Map<String, dynamic> toMap() {
+    return {
+      'column': column,
+      'asc': asc,
+    };
   }
-  String? _id;
-  String? _userName;
-  String? _password;
-  String? _createTime;
-  dynamic _updateTime;
-  dynamic _face;
-  PageList copyWith({
-    String? id,
-    String? userName,
-    String? password,
-    String? createTime,
-    dynamic updateTime,
-    dynamic face,
-  }) =>
-      PageList(
-        id: id ?? _id,
-        userName: userName ?? _userName,
-        password: password ?? _password,
-        createTime: createTime ?? _createTime,
-        updateTime: updateTime ?? _updateTime,
-        face: face ?? _face,
-      );
-  String? get id => _id;
-  String? get userName => _userName;
-  String? get password => _password;
-  String? get createTime => _createTime;
-  dynamic get updateTime => _updateTime;
-  dynamic get face => _face;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = _id;
-    map['userName'] = _userName;
-    map['password'] = _password;
-    map['createTime'] = _createTime;
-    map['updateTime'] = _updateTime;
-    map['face'] = _face;
-    return map;
+  factory OrderItemModel.fromMap(Map<String, dynamic> map) {
+    return OrderItemModel(
+      column: map['column'],
+      asc: map['asc'],
+    );
   }
+
+  String toJson() => json.encode(toMap());
+
+  factory OrderItemModel.fromJson(String source) =>
+      OrderItemModel.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'OrderItemModel(column: $column, asc: $asc)';
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+
+    return o is OrderItemModel && o.column == column && o.asc == asc;
+  }
+
+  @override
+  int get hashCode => column.hashCode ^ asc.hashCode;
 }

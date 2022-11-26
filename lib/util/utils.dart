@@ -21,7 +21,7 @@ class Utils {
     );
   }
 
-  static openTab(String id) {
+  static openTab(int id) {
     TabPage? tabPage = (StoreUtil.getDefaultTabs() + Routes.otherTabPage)
         .firstWhereOrNull((element) => element.id == id);
     if (tabPage == null) {

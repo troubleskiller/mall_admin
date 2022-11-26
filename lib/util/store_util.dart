@@ -44,11 +44,11 @@ class StoreUtil {
     write(Constant.KEY_OPENED_TAB_PAGE_LIST, data);
   }
 
-  static String? readCurrentOpenedTabPageId() {
+  static int? readCurrentOpenedTabPageId() {
     return read(Constant.KEY_CURRENT_OPENED_TAB_PAGE_ID);
   }
 
-  static writeCurrentOpenedTabPageId(String? data) {
+  static writeCurrentOpenedTabPageId(int? data) {
     write(Constant.KEY_CURRENT_OPENED_TAB_PAGE_ID, data);
   }
 
@@ -115,6 +115,7 @@ class StoreUtil {
     // }
     ResponseBodyApi responseBodyApi = await MenuApi.list();
     if (responseBodyApi.code != 401) {
+      print(PageModel.fromJson(responseBodyApi.data).list.toString());
       StoreUtil.write(Constant.KEY_MENU_LIST,
           PageModel.fromJson(responseBodyApi.data).list);
     }

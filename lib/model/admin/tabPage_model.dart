@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 class TabPage {
-  String? id;
+  int? id;
   String? name;
   String? nameEn;
   String? url;
@@ -18,7 +18,7 @@ class TabPage {
   });
 
   TabPage copyWith({
-    String? id,
+    int? id,
     String? name,
     String? nameEn,
     String? url,

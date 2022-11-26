@@ -66,7 +66,7 @@ class MenuModel extends TreeData {
 
   toTabPage() {
     return TabPage(
-      id: id.toString(),
+      id: id,
       name: name,
       nameEn: nameEn,
       url: url,

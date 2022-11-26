@@ -123,7 +123,7 @@ class _LayoutMenuState extends State<LayoutMenu> {
   }
 
   List<Widget> _getMenuListTile(
-      List<TreeVO<MenuModel>> data, String? currentOpenedTabPageId) {
+      List<TreeVO<MenuModel>> data, int? currentOpenedTabPageId) {
     List<Widget> listTileList = data.map<Widget>((TreeVO<MenuModel> treeVO) {
       IconData iconData = Utils.toIconData(treeVO.data!.icon);
       String name = treeVO.data!.name ?? '';
