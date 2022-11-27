@@ -6,7 +6,7 @@
 /// @description:
 import 'package:flutter/material.dart';
 import 'package:flutter_mall_admin/model/admin/tabPage_model.dart';
-import 'package:flutter_mall_admin/screen/brand_screen.dart';
+import 'package:flutter_mall_admin/screen/brand_screen/brand_screen.dart';
 import 'package:flutter_mall_admin/screen/category_screen/category_list.dart';
 import 'package:flutter_mall_admin/screen/layout/layout.dart';
 

@@ -4,6 +4,7 @@ import 'package:flutter_mall_admin/model/api/page_model.dart';
 import 'package:flutter_mall_admin/model/api/request_api.dart';
 import 'package:flutter_mall_admin/model/api/response_api.dart';
 import 'package:flutter_mall_admin/model/mall/brand_model.dart';
+import 'package:flutter_mall_admin/screen/brand_screen/brand_edit.dart';
 import 'package:flutter_mall_admin/widget/button/icon_button.dart';
 import 'package:flutter_mall_admin/widget/input/TroInput.dart';
 
@@ -41,11 +42,10 @@ class BrandListState extends State {
     showDialog(
       context: context,
       builder: (BuildContext context) => Dialog(
-          child:
-              // BrandEdit(
-              //   brandModel: brandModel,
-              // ),
-              Container()),
+        child: BrandEdit(
+          brandModel: brandModel,
+        ),
+      ),
     ).then((v) {
       if (v != null) {
         _query();
@@ -128,7 +128,7 @@ class BrandListState extends State {
                       return v.brandId;
                     }).toList();
                     var result = await BrandApi.removeByIds(ids);
-                    if (result.success) {
+                    if (result.code == 200) {
                       _query();
                     }
                   });
@@ -166,6 +166,9 @@ class BrandListState extends State {
               ),
               DataColumn(
                 label: Text('logo'),
+              ),
+              DataColumn(
+                label: Text('showStatus'),
               ),
               DataColumn(
                 label: Text('firstLetter'),
@@ -254,8 +257,20 @@ class MyDS extends DataTableSource {
         DataCell(Text(brandModel.name ?? '--')),
         DataCell(Text(brandModel.descript ?? '--')),
         DataCell(Text(brandModel.logo ?? '--')),
+        DataCell(
+          Switch(
+            value: brandModel.showStatus == 1, //当前状态
+            onChanged: (value) async {
+              brandModel.showStatus = value ? 1 : 0;
+              var result = await BrandApi.update(brandModel.toJson());
+              if (result.code == 200) {
+                loadData();
+              }
+            },
+          ),
+        ),
         DataCell(Text(brandModel.firstLetter ?? '--')),
-        DataCell(Text(brandModel.sort.toString() ?? '--')),
+        DataCell(Text(brandModel.sort.toString())),
         DataCell(ButtonBar(
           // alignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -270,7 +285,7 @@ class MyDS extends DataTableSource {
               onPressed: () {
                 cryConfirm(context, 'confirmDelete', (context) async {
                   var result = await BrandApi.removeByIds([brandModel.brandId]);
-                  if (result.success) {
+                  if (result.code == 200) {
                     loadData();
                   }
                 });
