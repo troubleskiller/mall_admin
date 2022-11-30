@@ -5,10 +5,13 @@ import 'package:flutter_mall_admin/model/api/request_api.dart';
 import 'package:flutter_mall_admin/model/api/response_api.dart';
 import 'package:flutter_mall_admin/model/mall/brand_model.dart';
 import 'package:flutter_mall_admin/screen/brand_screen/brand_edit.dart';
+import 'package:flutter_mall_admin/screen/brand_screen/brand_upload.dart';
 import 'package:flutter_mall_admin/widget/button/icon_button.dart';
 import 'package:flutter_mall_admin/widget/input/TroInput.dart';
 
 class BrandList extends StatefulWidget {
+  const BrandList({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return BrandListState();
@@ -51,6 +54,17 @@ class BrandListState extends State {
         _query();
       }
     });
+  }
+
+  _upload({BrandModel? brandModel}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => Dialog(
+        child: ImageUpload(
+          brandModel: brandModel,
+        ),
+      ),
+    );
   }
 
   @override
@@ -256,7 +270,14 @@ class MyDS extends DataTableSource {
       cells: <DataCell>[
         DataCell(Text(brandModel.name ?? '--')),
         DataCell(Text(brandModel.descript ?? '--')),
-        DataCell(Text(brandModel.logo ?? '--')),
+        DataCell(GestureDetector(
+          onTap: () {
+            state._upload(brandModel: brandModel);
+          },
+          child: brandModel.logo == null
+              ? Container()
+              : Image.network(brandModel.logo!),
+        )),
         DataCell(
           Switch(
             value: brandModel.showStatus == 1, //当前状态

@@ -42,6 +42,9 @@ dependencies:
   provider: 6.0.2
   flutter_colorpicker: ^1.0.3
   url_launcher: ^6.1.7
+  image_picker: ^0.8.6
+  path: ^1.8.2
+  http_parser: ^4.0.2
 
 dev_dependencies:
   flutter_test:

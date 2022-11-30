@@ -1,9 +1,3 @@
-/// @author: cairuoyu
-/// @homepage: http://cairuoyu.com
-/// @github: https://github.com/cairuoyu/cry、https://github.com/cairuoyu/flutter_admin
-/// @date: 2021/6/21
-/// @version: 1.0
-/// @description:
 import 'package:flutter/material.dart';
 
 class ButtonWithIcon extends StatelessWidget {
@@ -14,7 +8,7 @@ class ButtonWithIcon extends StatelessWidget {
   final EdgeInsets? padding;
   final Color? iconColor;
 
-  ButtonWithIcon(
+  const ButtonWithIcon(
       {this.label,
       this.iconColor,
       this.iconData,
@@ -47,11 +41,11 @@ class ButtonWithIcon extends StatelessWidget {
     } else {
       result = ElevatedButton(
         onPressed: onPressed,
-        child: Text(this.label ?? ''),
+        child: Text(label ?? ''),
       );
     }
-    if (this.padding != null) {
-      result = Container(padding: this.padding, child: result);
+    if (padding != null) {
+      result = Container(padding: padding, child: result);
     }
 
     if (tip != null) {

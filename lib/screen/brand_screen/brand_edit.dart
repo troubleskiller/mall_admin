@@ -5,6 +5,8 @@ import 'package:flutter_mall_admin/util/tro_util.dart';
 import 'package:flutter_mall_admin/widget/button/icon_button.dart';
 import 'package:flutter_mall_admin/widget/input/TroInput.dart';
 
+import 'brand_upload.dart';
+
 class BrandEdit extends StatefulWidget {
   final BrandModel? brandModel;
 
@@ -19,6 +21,17 @@ class BrandEdit extends StatefulWidget {
 class BrandEditState extends State<BrandEdit> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   BrandModel? _brandModel = BrandModel();
+
+  _upload({BrandModel? brandModel}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => Dialog(
+        child: ImageUpload(
+          brandModel: brandModel,
+        ),
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -44,11 +57,12 @@ class BrandEditState extends State<BrandEdit> {
               return v!.isEmpty ? 'required' : null;
             },
           ),
-          TroInput(
-            value: _brandModel!.logo,
-            label: 'logo',
-            onSaved: (v) {
-              _brandModel!.logo = v;
+          GestureDetector(
+            child: _brandModel?.logo == null
+                ? Icon(Icons.add)
+                : Image.asset(_brandModel?.logo ?? ''),
+            onTap: () {
+              _upload();
             },
           ),
           TroInput(
